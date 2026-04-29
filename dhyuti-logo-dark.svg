@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 160" width="500" height="160">
+  <defs>
+    <style>
+      @font-face {
+        font-family: 'Outfit';
+        src: local('Outfit Light'), local('Outfit'), local('DejaVu Sans');
+      }
+    </style>
+  </defs>
+
+  <!-- Dark background -->
+  <rect width="500" height="160" fill="#0C1220"/>
+
+  <!-- Radiant mark, centered at (80, 80) -->
+  <g transform="translate(80, 80)">
+    <!-- Cardinal rays (long) -->
+    <line x1="0" y1="-12" x2="0" y2="-44" stroke="#FFBB33" stroke-width="3.5" stroke-linecap="round"/>
+    <line x1="0" y1="12" x2="0" y2="44" stroke="#FFBB33" stroke-width="3.5" stroke-linecap="round"/>
+    <line x1="12" y1="0" x2="44" y2="0" stroke="#FFBB33" stroke-width="3.5" stroke-linecap="round"/>
+    <line x1="-12" y1="0" x2="-44" y2="0" stroke="#FFBB33" stroke-width="3.5" stroke-linecap="round"/>
+    <!-- Diagonal rays (short) -->
+    <line x1="8.49" y1="-8.49" x2="20.0" y2="-20.0" stroke="#FFBB33" stroke-width="2.8" stroke-linecap="round" opacity="0.55"/>
+    <line x1="8.49" y1="8.49" x2="20.0" y2="20.0" stroke="#FFBB33" stroke-width="2.8" stroke-linecap="round" opacity="0.55"/>
+    <line x1="-8.49" y1="8.49" x2="-20.0" y2="20.0" stroke="#FFBB33" stroke-width="2.8" stroke-linecap="round" opacity="0.55"/>
+    <line x1="-8.49" y1="-8.49" x2="-20.0" y2="-20.0" stroke="#FFBB33" stroke-width="2.8" stroke-linecap="round" opacity="0.55"/>
+    <!-- Center node -->
+    <circle cx="0" cy="0" r="7" fill="#FFBB33"/>
+  </g>
+
+  <!-- Brand name -->
+  <text x="148" y="71"
+    font-family="'Outfit', 'DejaVu Sans', Helvetica, Arial, sans-serif"
+    font-size="38"
+    font-weight="300"
+    fill="#FFFFFF"
+    letter-spacing="10">DHYUTI</text>
+
+  <!-- Divider line -->
+  <line x1="148" y1="84" x2="432" y2="84" stroke="#FFBB33" stroke-width="0.8" opacity="0.4"/>
+
+  <!-- Tagline -->
+  <text x="148" y="101"
+    font-family="'Outfit', 'DejaVu Sans', Helvetica, Arial, sans-serif"
+    font-size="12.5"
+    font-weight="300"
+    fill="#FFFFFF"
+    opacity="0.5"
+    letter-spacing="2.2">AI FOR SCIENCE AND ENGINEERING</text>
+</svg>
