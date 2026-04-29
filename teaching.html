@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teaching Cohort | Dhyuti</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* ── Dhyuti Brand Tokens ── */
+        :root {
+            --dhyuti-navy:        #0C1220;
+            --dhyuti-gold:        #FFBB33;
+            --dhyuti-amber:       #E08A00;
+            --dhyuti-cream:       #FAFAF7;
+            --dhyuti-white:       #FFFFFF;
+            --dhyuti-night:       #1C2840;
+            --dhyuti-grey:        #8A8F9E;
+            --dhyuti-linen:       #E8E5DE;
+            --dhyuti-font:        'Outfit', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            --dhyuti-font-light:  300;
+            --dhyuti-font-semi:   600;
+        }
+
+        /* ── Reset & Global ── */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: var(--dhyuti-font); background-color: var(--dhyuti-cream); color: var(--dhyuti-navy); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+
+        /* ── Navbar ── */
+        header { position: fixed; top: 0; width: 100%; z-index: 1000; padding: 1.5rem 0; background: rgba(12, 18, 32, 0.95); border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+        .navbar { display: flex; justify-content: space-between; align-items: center; }
+        .logo img { height: 48px; display: block; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3)); }
+        .nav-links { display: flex; gap: 2rem; }
+        .nav-links a { color: var(--dhyuti-white); text-decoration: none; font-size: 0.95rem; font-weight: var(--dhyuti-font-light); transition: color 0.3s ease; }
+        .nav-links a:hover { color: var(--dhyuti-gold); }
+        
+        .dropdown { position: relative; display: inline-block; }
+        .dropdown-content { display: none; position: absolute; top: 100%; left: 0; background-color: var(--dhyuti-night); min-width: 200px; box-shadow: 0 8px 32px rgba(0,0,0,0.5); border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); z-index: 1000; overflow: hidden; }
+        .dropdown-content a { color: var(--dhyuti-white); padding: 12px 16px; text-decoration: none; display: block; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .dropdown-content a:hover { background-color: rgba(255, 187, 51, 0.1); color: var(--dhyuti-gold); }
+        .dropdown:hover .dropdown-content { display: block; }
+
+        /* ── Page Content ── */
+        .page-header { background: var(--dhyuti-navy); color: var(--dhyuti-white); padding: 12rem 0 6rem; text-align: center; }
+        .page-title { font-size: 3.5rem; font-weight: var(--dhyuti-font-light); letter-spacing: 4px; margin-bottom: 1rem; }
+        .page-subtitle { font-size: 1.2rem; color: var(--dhyuti-gold); font-weight: var(--dhyuti-font-light); }
+
+        .content-section { padding: 6rem 0; min-height: 40vh; }
+        .info-card { background: var(--dhyuti-white); border-radius: 16px; padding: 4rem; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.05); border: 1px solid var(--dhyuti-linen); max-width: 800px; margin: 0 auto; }
+        .info-card h2 { font-size: 2rem; color: var(--dhyuti-navy); margin-bottom: 1.5rem; font-weight: var(--dhyuti-font-semi); }
+        .info-card p { font-size: 1.15rem; color: #555; margin-bottom: 2.5rem; line-height: 1.8; }
+        
+        .btn-primary { display: inline-block; background: var(--dhyuti-gold); color: var(--dhyuti-navy); padding: 1rem 2.5rem; border-radius: 8px; text-decoration: none; font-weight: var(--dhyuti-font-semi); font-size: 1.1rem; transition: all 0.3s ease; }
+        .btn-primary:hover { background: var(--dhyuti-amber); transform: translateY(-2px); }
+
+        /* ── Footer ── */
+        footer { background: #080C15; padding: 4rem 0 2rem; text-align: center; color: var(--dhyuti-white); }
+        .footer-logo { height: 40px; margin-bottom: 2rem; opacity: 0.5; }
+        .footer-brand { font-size: 1rem; font-weight: var(--dhyuti-font-light); letter-spacing: 5px; margin-bottom: 1rem; }
+        .footer-note { font-size: 0.85rem; color: var(--dhyuti-grey); font-weight: var(--dhyuti-font-light); }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container navbar">
+            <a href="index.html" class="logo"><img src="dhyuti-logo-dark.svg" alt="Dhyuti"></a>
+            <nav class="nav-links">
+                <a href="about.html">About & Mission</a>
+                <a href="publications.html">Publications</a>
+                <a href="blogs.html">Blogs</a>
+                <a href="code.html">Code</a>
+                <a href="teaching.html" style="color: var(--dhyuti-gold)">Teaching</a>
+                <div class="dropdown">
+                    <a href="seminars.html">Seminars ▾</a>
+                    <div class="dropdown-content">
+                        <a href="seminars.html#talks">Dhyuti Talks</a>
+                        <a href="seminars.html#walkthroughs">Walkthroughs</a>
+                        <a href="seminars.html#fireside">Fireside Chats</a>
+                        <a href="seminars.html#industry">Industry Connect</a>
+                        <a href="seminars.html#sparx">Dhyuti Sparx</a>
+                        <a href="seminars.html#spotlights">Spotlights</a>
+                        <a href="seminars.html#bootcamps">Bootcamps</a>
+                        <a href="seminars.html#hackathons">Hackathons</a>
+                    </div>
+                </div>
+                <a href="https://www.linkedin.com/company/dhyutifrontiers/about/" target="_blank">LinkedIn</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="page-header">
+        <div class="container">
+            <h1 class="page-title">Teaching Cohort</h1>
+            <p class="page-subtitle">Scientific Machine Learning & Scientific Computing</p>
+        </div>
+    </div>
+
+    <div class="content-section">
+        <div class="container">
+            <div class="info-card">
+                <h2>SciML & SciComp Cohort</h2>
+                <p>Welcome to our central hub for learning materials. We maintain open-access lecture notes, reading materials, and curriculum assignments for our active teaching cohorts.</p>
+                <a href="https://github.com/DhyutiLABS/DhyutiSciML_SciComp_Cohort" class="btn-primary" target="_blank">Access the Repository</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <img src="dhyuti-icon.svg" alt="Dhyuti Mark" class="footer-logo">
+            <div class="footer-brand">DHYUTI</div>
+            <div class="footer-note">Radiance from Ideas &copy; 2026. All rights reserved.</div>
+        </div>
+    </footer>
+</body>
+</html>

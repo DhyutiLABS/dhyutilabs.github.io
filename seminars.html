@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seminars & Events | Dhyuti</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* ── Dhyuti Brand Tokens ── */
+        :root {
+            --dhyuti-navy:        #0C1220;
+            --dhyuti-gold:        #FFBB33;
+            --dhyuti-amber:       #E08A00;
+            --dhyuti-cream:       #FAFAF7;
+            --dhyuti-white:       #FFFFFF;
+            --dhyuti-night:       #1C2840;
+            --dhyuti-gold-pale:   #FFD980;
+            --dhyuti-grey:        #8A8F9E;
+            --dhyuti-linen:       #E8E5DE;
+            --dhyuti-font:        'Outfit', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            --dhyuti-font-light:  300;
+            --dhyuti-font-reg:    400;
+            --dhyuti-font-semi:   600;
+        }
+
+        /* ── Reset & Global ── */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: var(--dhyuti-font); background-color: var(--dhyuti-cream); color: var(--dhyuti-navy); line-height: 1.7; overflow-x: hidden; scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+        ::selection { background-color: var(--dhyuti-gold); color: var(--dhyuti-navy); }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+
+        /* ── Navbar ── */
+        header { position: fixed; top: 0; width: 100%; z-index: 1000; padding: 1.5rem 0; background: rgba(12, 18, 32, 0.95); border-bottom: 1px solid rgba(255, 255, 255, 0.05); transition: all 0.3s ease; }
+        .navbar { display: flex; justify-content: space-between; align-items: center; }
+        .logo img { height: 48px; display: block; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3)); }
+        .nav-links { display: flex; gap: 2rem; }
+        .nav-links a { color: var(--dhyuti-white); text-decoration: none; font-size: 0.95rem; font-weight: var(--dhyuti-font-light); transition: color 0.3s ease; }
+        .nav-links a:hover { color: var(--dhyuti-gold); }
+
+        /* Dropdown */
+        .dropdown { position: relative; display: inline-block; }
+        .dropdown-content { display: none; position: absolute; top: 100%; left: 0; background-color: var(--dhyuti-night); min-width: 200px; box-shadow: 0 8px 32px rgba(0,0,0,0.5); border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); z-index: 1000; overflow: hidden; }
+        .dropdown-content a { color: var(--dhyuti-white); padding: 12px 16px; text-decoration: none; display: block; border-bottom: 1px solid rgba(255,255,255,0.05); transition: background 0.3s, color 0.3s; }
+        .dropdown-content a:last-child { border-bottom: none; }
+        .dropdown-content a:hover { background-color: rgba(255, 187, 51, 0.1); color: var(--dhyuti-gold); }
+        .dropdown:hover .dropdown-content { display: block; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* ── Page Content ── */
+        .page-header { background: var(--dhyuti-navy); color: var(--dhyuti-white); padding: 12rem 0 6rem; text-align: center; }
+        .page-title { font-size: 3.5rem; font-weight: var(--dhyuti-font-light); letter-spacing: 4px; margin-bottom: 1rem; }
+        .page-subtitle { font-size: 1.2rem; color: var(--dhyuti-gold); font-weight: var(--dhyuti-font-light); }
+
+        .content-section { padding: 4rem 0; }
+        
+        .seminar-format {
+            margin-bottom: 4rem;
+            padding: 3rem;
+            background: var(--dhyuti-white);
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            border: 1px solid var(--dhyuti-linen);
+            scroll-margin-top: 120px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .seminar-format:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            border-color: rgba(224, 138, 0, 0.2);
+        }
+
+        .format-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--dhyuti-linen);
+        }
+
+        .format-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(224, 138, 0, 0.1);
+            color: var(--dhyuti-amber);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1.5rem;
+        }
+
+        .format-icon svg { width: 20px; height: 20px; stroke: currentColor; stroke-width: 2; fill: none; }
+
+        .seminar-format h2 {
+            font-size: 2rem;
+            color: var(--dhyuti-navy);
+            font-weight: var(--dhyuti-font-semi);
+        }
+
+        .seminar-format p {
+            font-size: 1.1rem;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .btn-outline {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            border: 1px solid var(--dhyuti-amber);
+            color: var(--dhyuti-amber);
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: var(--dhyuti-font-semi);
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline:hover {
+            background: var(--dhyuti-amber);
+            color: var(--dhyuti-white);
+        }
+
+        /* ── Footer ── */
+        footer { background: #080C15; padding: 4rem 0 2rem; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; color: var(--dhyuti-white); }
+        .footer-logo { height: 40px; margin-bottom: 2rem; opacity: 0.5; transition: opacity 0.3s ease; }
+        .footer-logo:hover { opacity: 1; }
+        .footer-brand { font-size: 1rem; font-weight: var(--dhyuti-font-light); letter-spacing: 5px; margin-bottom: 1rem; }
+        .footer-note { font-size: 0.85rem; color: var(--dhyuti-grey); font-weight: var(--dhyuti-font-light); }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container navbar">
+            <a href="index.html" class="logo">
+                <img src="dhyuti-logo-dark.svg" alt="Dhyuti">
+            </a>
+            <nav class="nav-links">
+                <a href="about.html">About & Mission</a>
+                <a href="publications.html">Publications</a>
+                <a href="blogs.html">Blogs</a>
+                <a href="code.html">Code</a>
+                <a href="teaching.html">Teaching</a>
+                <div class="dropdown">
+                    <a href="seminars.html" style="color: var(--dhyuti-gold)">Seminars ▾</a>
+                    <div class="dropdown-content">
+                        <a href="#talks">Dhyuti Talks</a>
+                        <a href="#walkthroughs">Walkthroughs</a>
+                        <a href="#fireside">Fireside Chats</a>
+                        <a href="#industry">Industry Connect</a>
+                        <a href="#sparx">Dhyuti Sparx</a>
+                        <a href="#spotlights">Spotlights</a>
+                        <a href="#bootcamps">Bootcamps</a>
+                        <a href="#hackathons">Hackathons</a>
+                    </div>
+                </div>
+                <a href="https://www.linkedin.com/company/dhyutifrontiers/about/" target="_blank">LinkedIn</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="page-header">
+        <div class="container">
+            <h1 class="page-title">Seminars & Events</h1>
+            <p class="page-subtitle">Learn, connect, and collaborate across different formats</p>
+        </div>
+    </div>
+
+    <div class="content-section">
+        <div class="container">
+            
+            <div id="talks" class="seminar-format">
+                <div class="format-header">
+                    <div class="format-icon"><svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg></div>
+                    <h2>Dhyuti Talks</h2>
+                </div>
+                <p>Deep-dive presentations by researchers and engineers exploring their latest work in AI applied to science and engineering. Discover new methodologies, algorithms, and applications.</p>
+                <a href="#" class="btn-outline">View Upcoming Talks</a>
+            </div>
+
+            <div id="walkthroughs" class="seminar-format">
+                <div class="format-header">
+                    <div class="format-icon"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg></div>
+                    <h2>Dhyuti Walkthroughs</h2>
+                </div>
+                <p>Hands-on coding sessions and code walkthroughs. We break down the implementation details of key SciML models, PINNs, and scientific frameworks step-by-step.</p>
+                <a href="#" class="btn-outline">Browse Walkthroughs</a>
+            </div>
+
+            <div id="fireside" class="seminar-format">
+                <div class="format-header">
+                    <div class="format-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg></div>
+                    <h2>Dhyuti Fireside Chats</h2>
+                </div>
+                <p>Informal, interactive conversations with thought leaders and pioneers in the field. Discussing the future of AI for science, ethics, and career trajectories.</p>
+                <a href="#" class="btn-outline">Listen In</a>
+            </div>
+
+            <div id="industry" class="seminar-format">
+                <div class="format-header">
+                    <div class="format-icon"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg></div>
+                    <h2>Dhyuti Industry Connect</h2>
+                </div>
+                <p>Bridging the gap between academic research and industrial application. Hear from companies integrating SciML into their engineering pipelines and product cycles.</p>
+                <a href="#" class="btn-outline">Explore Industry Trends</a>
+            </div>
+
+            <div id="sparx" class="seminar-format">
+                <div class="format-header">
+                    <div class="format-icon"><svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg></div>
+                    <h2>Dhyuti Sparx</h2>
+                </div>
+                <p>Lightning talks and rapid-fire presentations. A great format for students and early-career researchers to pitch novel ideas or share quick insights.</p>
+                <a href="#" class="btn-outline">Watch Sparx</a>
+            </div>
+
+            <div id="spotlights" class="seminar-format">
+                <div class="format-header">
+                    <div class="format-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg></div>
+                    <h2>Dhyuti Spotlights</h2>
+                </div>
+                <p>Highlighting exceptional individuals, impactful research papers, or open-source projects that are pushing the boundaries of AI in science and engineering.</p>
+                <a href="#" class="btn-outline">Read Spotlights</a>
+            </div>
+
+            <div id="bootcamps" class="seminar-format">
+                <div class="format-header">
+                    <div class="format-icon"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg></div>
+                    <h2>Bootcamps</h2>
+                </div>
+                <p>Intensive, multi-day training programs designed to take participants from fundamentals to advanced implementations in Scientific Machine Learning and scientific computing.</p>
+                <a href="#" class="btn-outline">Join a Bootcamp</a>
+            </div>
+
+            <div id="hackathons" class="seminar-format">
+                <div class="format-header">
+                    <div class="format-icon"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg></div>
+                    <h2>Hackathons</h2>
+                </div>
+                <p>Collaborative coding events where the community comes together to build solutions, solve hard problems, and create open-source tools for the AI for Science ecosystem over a weekend.</p>
+                <a href="#" class="btn-outline">Participate</a>
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <img src="dhyuti-icon.svg" alt="Dhyuti Mark" class="footer-logo">
+            <div class="footer-brand">DHYUTI</div>
+            <div class="footer-note">Radiance from Ideas &copy; 2026. All rights reserved.</div>
+        </div>
+    </footer>
+
+</body>
+</html>
