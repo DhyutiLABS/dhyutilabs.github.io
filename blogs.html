@@ -60,13 +60,40 @@
         .footer-logo { height: 40px; margin-bottom: 2rem; opacity: 0.5; }
         .footer-brand { font-size: 1rem; font-weight: var(--dhyuti-font-light); letter-spacing: 5px; margin-bottom: 1rem; }
         .footer-note { font-size: 0.85rem; color: var(--dhyuti-grey); font-weight: var(--dhyuti-font-light); }
+    
+        /* Mobile Menu Toggle */
+        .menu-toggle { display: none; color: var(--dhyuti-white); font-size: 1.5rem; cursor: pointer; }
+        
+        @media (max-width: 992px) {
+            .menu-toggle { display: block; }
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--dhyuti-night);
+                flex-direction: column;
+                padding: 1rem 0;
+                box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+                border-top: 1px solid rgba(255,255,255,0.05);
+            }
+            .nav-links.active { display: flex; }
+            .nav-links a { padding: 1rem 2rem; width: 100%; display: block; }
+            .dropdown { padding: 1rem 2rem; width: 100%; display: block; }
+            .dropdown-content { position: static; box-shadow: none; display: none; background: rgba(0,0,0,0.2); width: 100%; }
+            .dropdown.active .dropdown-content { display: block; }
+            .dropdown:hover .dropdown-content { display: none; }
+            .dropdown.active:hover .dropdown-content { display: block; }
+        }
     </style>
 </head>
 <body>
     <header>
         <div class="container navbar">
             <a href="index.html" class="logo"><img src="dhyuti-logo-dark.svg" alt="Dhyuti"></a>
-            <nav class="nav-links">
+            <div class="menu-toggle" id="mobile-menu">☰</div>
+            <nav class="nav-links" id="nav-links">
                 <a href="about.html">About & Mission</a>
                 <a href="publications.html">Publications</a>
                 <a href="blogs.html" style="color: var(--dhyuti-gold)">Blogs</a>
@@ -114,5 +141,24 @@
             <div class="footer-note">Radiance from Ideas &copy; 2026. All rights reserved.</div>
         </div>
     </footer>
+    <script>
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navLinks = document.getElementById('nav-links');
+        if (mobileMenu) {
+            mobileMenu.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
+        }
+        
+        // Handle dropdown on mobile
+        const dropdown = document.querySelector('.dropdown');
+        if (dropdown) {
+            dropdown.addEventListener('click', (e) => {
+                if(window.innerWidth <= 992) {
+                    dropdown.classList.toggle('active');
+                }
+            });
+        }
+    </script>
 </body>
 </html>
