@@ -75,8 +75,9 @@
         }
 
         .logo img {
-            height: 32px;
+            height: 48px;
             display: block;
+            filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3));
         }
 
         .nav-links {
@@ -133,25 +134,18 @@
             animation: fadeUp 1s ease-out forwards;
         }
 
-        .hero-icon {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 2rem;
+        .hero-banner {
+            max-width: 600px;
+            width: 90%;
+            height: auto;
+            margin: 0 auto 3rem;
             animation: float 6s ease-in-out infinite;
+            filter: drop-shadow(0 4px 20px rgba(0,0,0,0.5));
         }
 
         @keyframes float {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-15px); }
-        }
-
-        .hero h1 {
-            font-size: clamp(3rem, 6vw, 4.5rem);
-            font-weight: var(--dhyuti-font-light);
-            letter-spacing: 12px;
-            text-transform: uppercase;
-            margin-bottom: 1.5rem;
-            text-shadow: 0 4px 20px rgba(0,0,0,0.5);
         }
 
         .hero-subtitle {
@@ -384,8 +378,7 @@
         <section class="hero">
             <div class="hero-glow"></div>
             <div class="container hero-content">
-                <img src="dhyuti-icon.svg" alt="Dhyuti Radiance" class="hero-icon">
-                <h1>DHYUTI</h1>
+                <img src="dhyuti-logo-dark.svg" alt="Dhyuti Banner" class="hero-banner">
                 <p class="hero-subtitle">
                     An open science and community initiative focused on applying AI to solve hard problems in science and engineering.
                 </p>
