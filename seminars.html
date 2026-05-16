@@ -130,6 +130,40 @@
         .footer-logo:hover { opacity: 1; }
         .footer-brand { font-size: 1rem; font-weight: var(--dhyuti-font-light); letter-spacing: 5px; margin-bottom: 1rem; }
         .footer-note { font-size: 0.85rem; color: var(--dhyuti-grey); font-weight: var(--dhyuti-font-light); }
+
+        /* ── Speakers CSS ── */
+        .speakers-section-title {
+            font-size: 2rem; color: var(--dhyuti-navy); font-weight: var(--dhyuti-font-light); margin-top: 3rem; margin-bottom: 2rem; border-bottom: 2px solid var(--dhyuti-linen); padding-bottom: 1rem;
+        }
+        .speaker-card {
+            background: var(--dhyuti-white); border-radius: 12px; border: 1px solid var(--dhyuti-linen); box-shadow: 0 4px 15px rgba(0,0,0,0.03); padding: 2rem; margin-bottom: 2rem; display: flex; gap: 2rem; transition: transform 0.3s ease;
+        }
+        .speaker-card:hover {
+            transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,0,0,0.08); border-color: rgba(224, 138, 0, 0.2);
+        }
+        .speaker-photo-container {
+            flex: 0 0 150px; display: flex; flex-direction: column; align-items: center;
+        }
+        .speaker-photo {
+            width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 3px solid var(--dhyuti-cream); box-shadow: 0 4px 10px rgba(0,0,0,0.1); background: var(--dhyuti-navy);
+        }
+        .speaker-details {
+            flex: 1;
+        }
+        .speaker-name {
+            font-size: 1.5rem; color: var(--dhyuti-amber); font-weight: var(--dhyuti-font-semi); margin-bottom: 1rem;
+        }
+        .speaker-bio, .speaker-abstract {
+            margin-bottom: 1.5rem; font-size: 0.95rem; color: #555; line-height: 1.6;
+        }
+        .speaker-links {
+            margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: 10px;
+        }
+        @media (max-width: 768px) {
+            .speaker-card { flex-direction: column; align-items: center; text-align: center; }
+            .speaker-links { justify-content: center; }
+            .speaker-bio, .speaker-abstract { text-align: left; }
+        }
             /* Mobile Menu Toggle */
         .menu-toggle { display: none; color: var(--dhyuti-white); font-size: 1.5rem; cursor: pointer; }
         
@@ -175,6 +209,7 @@
                     <a href="seminars.html" style="color: var(--dhyuti-gold)">Seminars ▾</a>
                     <div class="dropdown-content">
                         <a href="#youtube">YouTube Channel</a>
+                        <a href="#speakers">Guest Speakers</a>
                         <a href="#talks">Dhyuti Talks</a>
                         <a href="#walkthroughs">Walkthroughs</a>
                         <a href="#fireside">Fireside Chats</a>
@@ -231,6 +266,19 @@
                     <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
                         <iframe src="https://drive.google.com/file/d/1sIpxYFIs_f4bZCJNXQTpSijonDpHV08m/preview" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" allow="autoplay"></iframe>
                     </div>
+                </div>
+            </div>
+
+            <!-- Dynamic Speakers Section -->
+            <div id="speakers" class="seminar-format">
+                <div class="format-header">
+                    <div class="format-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div>
+                    <h2>Guest Speakers & Seminars</h2>
+                </div>
+                <p>A directory of our upcoming and past speakers, complete with abstracts, bios, and presentation links. This list is dynamically maintained via our open-source <code>speakers.md</code> repository file.</p>
+                
+                <div id="speakers-content">
+                    <p style="text-align: center; color: var(--dhyuti-grey); padding: 2rem;">Loading speakers...</p>
                 </div>
             </div>
 
@@ -325,6 +373,113 @@
                     dropdown.classList.toggle('active');
                 }
             });
+        }
+
+        // Speakers Markdown Parser
+        async function loadSpeakers() {
+            try {
+                // Add cache busting query string so it always gets the latest version
+                const response = await fetch('speakers.md?' + new Date().getTime());
+                if (!response.ok) throw new Error("Failed to fetch");
+                
+                const text = await response.text();
+                let html = '';
+                
+                // Split by H1 headers
+                const sections = text.split(/\n# /);
+                
+                sections.forEach((section, index) => {
+                    if (!section.trim()) return;
+                    
+                    let sectionTitle = section.split('\n')[0].replace('# ', '').trim();
+                    if (index === 0 && text.startsWith('# ')) {
+                        // First section might not be split correctly if we didn't match the start
+                        if (section.startsWith('# ')) {
+                            sectionTitle = sectionTitle.replace('# ', '');
+                        }
+                    }
+                    
+                    html += `<h2 class="speakers-section-title">${sectionTitle}</h2>`;
+                    
+                    // Split by H2 headers (speakers)
+                    const speakers = section.split(/\n## /);
+                    speakers.shift(); // Remove content before first speaker
+                    
+                    speakers.forEach(speaker => {
+                        const lines = speaker.trim().split('\n');
+                        const nameAndDate = lines[0].trim();
+                        
+                        let photoUrl = 'dhyuti-icon.png'; // Default fallback
+                        let linksHtml = '';
+                        let abstractHtml = '';
+                        let bioHtml = '';
+                        
+                        let currentSection = 'meta';
+                        
+                        for (let i = 1; i < lines.length; i++) {
+                            const line = lines[i].trim();
+                            if (line.startsWith('**Photo:**')) {
+                                photoUrl = line.replace('**Photo:**', '').trim();
+                            } else if (line.startsWith('**Links:**')) {
+                                const linksRaw = line.replace('**Links:**', '').trim();
+                                const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
+                                let match;
+                                while ((match = linkRegex.exec(linksRaw)) !== null) {
+                                    linksHtml += `<a href="${match[2]}" class="btn-outline" style="padding: 0.4rem 1rem; font-size: 0.85rem;">${match[1]}</a>`;
+                                }
+                            } else if (line.startsWith('### Abstract')) {
+                                currentSection = 'abstract';
+                            } else if (line.startsWith('### Bio')) {
+                                currentSection = 'bio';
+                            } else if (line.length > 0 && !line.startsWith('---')) {
+                                if (currentSection === 'abstract') {
+                                    abstractHtml += `<p>${line}</p>`;
+                                } else if (currentSection === 'bio') {
+                                    bioHtml += `<p>${line}</p>`;
+                                }
+                            }
+                        }
+                        
+                        html += `
+                        <div class="speaker-card">
+                            <div class="speaker-photo-container">
+                                <img src="${photoUrl}" alt="${nameAndDate}" class="speaker-photo" onerror="this.src='dhyuti-icon.png'">
+                            </div>
+                            <div class="speaker-details">
+                                <h3 class="speaker-name">${nameAndDate}</h3>
+                                
+                                <div class="speaker-abstract">
+                                    <strong style="color: var(--dhyuti-navy); display: block; margin-bottom: 0.5rem; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px;">Abstract</strong>
+                                    ${abstractHtml || '<p>No abstract provided.</p>'}
+                                </div>
+
+                                <div class="speaker-bio">
+                                    <strong style="color: var(--dhyuti-navy); display: block; margin-bottom: 0.5rem; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px;">Speaker Bio</strong>
+                                    ${bioHtml || '<p>No bio provided.</p>'}
+                                </div>
+                                
+                                <div class="speaker-links">
+                                    ${linksHtml}
+                                </div>
+                            </div>
+                        </div>
+                        `;
+                    });
+                });
+                
+                const container = document.getElementById('speakers-content');
+                if (container) container.innerHTML = html || '<p>No speakers found.</p>';
+                
+            } catch (e) {
+                console.error("Error loading speakers:", e);
+                const container = document.getElementById('speakers-content');
+                if (container) container.innerHTML = "<p style='color: red;'>Failed to load speakers list. Please check if speakers.md exists.</p>";
+            }
+        }
+        
+        // Only run on the seminars page
+        if (document.getElementById('speakers-content')) {
+            loadSpeakers();
         }
     </script>
 </body>
